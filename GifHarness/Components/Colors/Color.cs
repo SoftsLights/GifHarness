@@ -615,7 +615,7 @@ public struct Color(byte redComponent, byte greenComponent, byte blueComponent)
                 rgbStringLengthWithHashWithAlpha &&
             firstChar != '#')
             throw new ArgumentException(
-                "Color string must start with '#' if it is 7 characters long.",
+                "Color string must start with '#' if it is 7 or 9 characters long.",
                 nameof(colorString)
             );
 
