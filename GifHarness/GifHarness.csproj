@@ -4,10 +4,34 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageId>GIF_Harness</PackageId>
+        <Version>0.0.4</Version>
+        <Authors>Jascha MERLE</Authors>
+        <Description>
+            The word harness is used in this context
+            as this library is meant to be used as a file-type harness
+            for GIF files for an upcoming open source IDE platform.
+            Harnesses are used to provide an interface to a file type
+            for the IDE platform to interact with.
+            All harnesses are intended to provide exceptional introspection
+            and manipulation capabilities to the IDE platform, or any
+            other software that which to use them.
+            This harness is designed to be used with the GIF file format.
+            It supports reading and writing GIF files, as well as
+            providing a rich set of introspection and manipulation
+            capabilities for GIF files.
+            The supported GIF file formats are GIF87a and GIF89a.
+        </Description>
+        <RepositoryUrl>
+            https://github.com/SoftsLights/GifHarness
+        </RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
+        <None Include="docs\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
 
 </Project>
