@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GifHarness", "GifHarness\GifHarness.csproj", "{F829A3C0-2E0F-4312-B909-693B8884E370}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftLightsRasterizedInterface", "SoftLightsRasterizedInterface\SoftLightsRasterizedInterface.csproj", "{E40D210E-C008-4BBB-8F10-20C5242966EB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{3558183B-138B-4B7A-91F6-4C4C5EC64A69}"
 EndProject
 Global
@@ -16,10 +14,6 @@ Global
 		{F829A3C0-2E0F-4312-B909-693B8884E370}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F829A3C0-2E0F-4312-B909-693B8884E370}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F829A3C0-2E0F-4312-B909-693B8884E370}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E40D210E-C008-4BBB-8F10-20C5242966EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E40D210E-C008-4BBB-8F10-20C5242966EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E40D210E-C008-4BBB-8F10-20C5242966EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E40D210E-C008-4BBB-8F10-20C5242966EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3558183B-138B-4B7A-91F6-4C4C5EC64A69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3558183B-138B-4B7A-91F6-4C4C5EC64A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3558183B-138B-4B7A-91F6-4C4C5EC64A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
