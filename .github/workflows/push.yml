@@ -34,7 +34,7 @@ jobs:
         run: dotnet build --configuration Release /p:Version=${{ env.VERSION }}
 
       - name: Test
-        run: dotnet test --configuration Release /p:Version=${{ env.VERSION }} --no-build
+        run: dotnet test --configuration Release /p:Version=${{ env.VERSION }} --logger "trx;LogFileName=test_results.trx" --no-build
 
       - name: Publish test results
         if: always()
