@@ -1,3 +1,4 @@
+name: nuget.yml
 on:
   push:
     tags:
@@ -31,15 +32,32 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release /p:Version=${{ env.VERSION }}
+
       - name: Test
         id: test
-        run: dotnet test --configuration Release /p:Version=${{ env.VERSION }} --no-build
+        run: dotnet test --configuration Release /p:Version=${{ env.VERSION }} --logger "trx;LogFileName=test_results.trx" --no-build
+
+      - name: Publish test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test Results
+          path: '**/TestResults/*.trx'
+
+      - name: Report test results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: .NET Tests
+          path: '**/TestResults/*.trx'
+          reporter: dotnet-trx
+
       - name: Pack
         run: dotnet pack --configuration Release /p:Version=${{ env.VERSION }} --no-build --output ./artifacts
         if: steps.test.outcome == 'success'
+
       - name: Publish
         run: dotnet nuget push ./artifacts/*.nupkg --source https://nuget.pkg.github.com/SoftsLights/index.json --api-key ${GITHUB_TOKEN}
         env:
           GITHUB_TOKEN: ${{ secrets.GIF_HARNESS_GITHUB_TOKEN_CICD }}
         if: steps.test.outcome == 'success'
-  
