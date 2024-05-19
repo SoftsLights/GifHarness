@@ -35,3 +35,18 @@ jobs:
 
       - name: Test
         run: dotnet test --configuration Release /p:Version=${{ env.VERSION }} --no-build
+
+      - name: Publish test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: "**/TestResults/*.trx"
+      
+      - name: Report test results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: .NET Tests
+          path: '**/TestResults/*.trx'
+          reporter: dotnet-trx
