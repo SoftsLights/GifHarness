@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "[0-9]+.[0-9]+.[0-9]+"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,7 +20,7 @@ jobs:
           set -e
           git fetch --tags
           TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null) || true
-          if [[ -n "$TAG" && "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+          if [[ -n "$TAG" && "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
             VERSION=$TAG
           else
             COMMIT_HASH=$(git rev-parse --short HEAD)
@@ -33,9 +33,9 @@ jobs:
         run: dotnet build --configuration Release /p:Version=${{ env.VERSION }}
       - name: Test
         id: test
-        run: dotnet test --configuration Release /p:Version=${VERSION} --no-build
+        run: dotnet test --configuration Release /p:Version=${{ env.VERSION }} --no-build
       - name: Pack
-        run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output ./artifacts
+        run: dotnet pack --configuration Release /p:Version=${{ env.VERSION }} --no-build --output ./artifacts
         if: steps.test.outcome == 'success'
       - name: Publish
         run: dotnet nuget push ./artifacts/*.nupkg --source https://nuget.pkg.github.com/SoftsLights/index.json --api-key ${GITHUB_TOKEN}
