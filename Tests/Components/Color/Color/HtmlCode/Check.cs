@@ -3,13 +3,82 @@ namespace Tests.Components.Color.Color.HtmlCode;
 public class Check
 {
     [Fact]
+    public void IsAliceBlue()
+    {
+        const byte expectedRed = 240;
+        const byte expectedGreen = 248;
+        const byte expectedBlue = 255;
+
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
+
+        GifHarness.Components.Colors.Color controlColor =
+            GifHarness.Components.Colors.Color.AliceBlue;
+
+        Assert.True(color.IsAliceBlue);
+        Assert.True(controlColor.IsAliceBlue);
+
+        Assert.Equal(expectedRed, color.RedComponent);
+        Assert.Equal(expectedGreen, color.GreenComponent);
+        Assert.Equal(expectedBlue, color.BlueComponent);
+
+        Assert.Equal(expectedRed, controlColor.RedComponent);
+        Assert.Equal(expectedGreen, controlColor.GreenComponent);
+        Assert.Equal(expectedBlue, controlColor.BlueComponent);
+
+        const string expectedHex = "#f0f8ff";
+
+        Assert.Equal(expectedHex,
+            color.ToRgbColorString(includeHash: true, useUppercase: false));
+        Assert.Equal(expectedHex,
+            controlColor.ToRgbColorString(includeHash: true,
+                useUppercase: false));
+    }
+
+    [Fact]
+    public void IsNotAliceBlueEasy()
+    {
+        const byte expectedRed = 0;
+        const byte expectedGreen = 0;
+        const byte expectedBlue = 0;
+
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
+
+        Assert.False(color.IsAliceBlue);
+
+        Assert.Equal(expectedRed, color.RedComponent);
+        Assert.Equal(expectedGreen, color.GreenComponent);
+        Assert.Equal(expectedBlue, color.BlueComponent);
+    }
+
+    [Fact]
+    public void IsNotAliceBlue()
+    {
+        const byte expectedRed = 65;
+        const byte expectedGreen = 179;
+        const byte expectedBlue = 45;
+
+        GifHarness.Components.Colors.Color color =
+            new(expectedRed, expectedGreen,
+                expectedBlue);
+
+        Assert.False(color.IsAliceBlue);
+
+        Assert.Equal(expectedRed, color.RedComponent);
+        Assert.Equal(expectedGreen, color.GreenComponent);
+        Assert.Equal(expectedBlue, color.BlueComponent);
+    }
+
+    [Fact]
     public void IsAntiqueWhite()
     {
         const byte expectedRed = 250;
         const byte expectedGreen = 235;
         const byte expectedBlue = 215;
 
-        GifHarness.Components.Colors.Color color = new(250, 235, 215);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.AntiqueWhite;
@@ -76,7 +145,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(0, 255, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Aqua;
@@ -143,7 +213,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 212;
 
-        GifHarness.Components.Colors.Color color = new(127, 255, 212);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Aquamarine;
@@ -210,7 +281,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(240, 255, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Azure;
@@ -277,7 +349,8 @@ public class Check
         const byte expectedGreen = 245;
         const byte expectedBlue = 220;
 
-        GifHarness.Components.Colors.Color color = new(245, 245, 220);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Beige;
@@ -344,7 +417,8 @@ public class Check
         const byte expectedGreen = 228;
         const byte expectedBlue = 196;
 
-        GifHarness.Components.Colors.Color color = new(255, 228, 196);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Bisque;
@@ -411,7 +485,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(0, 0, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Black;
@@ -478,7 +553,8 @@ public class Check
         const byte expectedGreen = 235;
         const byte expectedBlue = 205;
 
-        GifHarness.Components.Colors.Color color = new(255, 235, 205);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.BlanchedAlmond;
@@ -545,7 +621,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(0, 0, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Blue;
@@ -612,7 +689,8 @@ public class Check
         const byte expectedGreen = 43;
         const byte expectedBlue = 226;
 
-        GifHarness.Components.Colors.Color color = new(138, 43, 226);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.BlueViolet;
@@ -679,7 +757,8 @@ public class Check
         const byte expectedGreen = 42;
         const byte expectedBlue = 42;
 
-        GifHarness.Components.Colors.Color color = new(165, 42, 42);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Brown;
@@ -746,7 +825,8 @@ public class Check
         const byte expectedGreen = 184;
         const byte expectedBlue = 135;
 
-        GifHarness.Components.Colors.Color color = new(222, 184, 135);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.BurlyWood;
@@ -813,7 +893,8 @@ public class Check
         const byte expectedGreen = 158;
         const byte expectedBlue = 160;
 
-        GifHarness.Components.Colors.Color color = new(95, 158, 160);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.CadetBlue;
@@ -880,7 +961,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(127, 255, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Chartreuse;
@@ -947,7 +1029,8 @@ public class Check
         const byte expectedGreen = 105;
         const byte expectedBlue = 30;
 
-        GifHarness.Components.Colors.Color color = new(210, 105, 30);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Chocolate;
@@ -1014,7 +1097,8 @@ public class Check
         const byte expectedGreen = 127;
         const byte expectedBlue = 80;
 
-        GifHarness.Components.Colors.Color color = new(255, 127, 80);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Coral;
@@ -1081,7 +1165,8 @@ public class Check
         const byte expectedGreen = 149;
         const byte expectedBlue = 237;
 
-        GifHarness.Components.Colors.Color color = new(100, 149, 237);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.CornflowerBlue;
@@ -1148,7 +1233,8 @@ public class Check
         const byte expectedGreen = 248;
         const byte expectedBlue = 220;
 
-        GifHarness.Components.Colors.Color color = new(255, 248, 220);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Cornsilk;
@@ -1215,7 +1301,8 @@ public class Check
         const byte expectedGreen = 20;
         const byte expectedBlue = 60;
 
-        GifHarness.Components.Colors.Color color = new(220, 20, 60);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Crimson;
@@ -1282,7 +1369,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(0, 255, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Cyan;
@@ -1349,7 +1437,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 139;
 
-        GifHarness.Components.Colors.Color color = new(0, 0, 139);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkBlue;
@@ -1416,7 +1505,8 @@ public class Check
         const byte expectedGreen = 139;
         const byte expectedBlue = 139;
 
-        GifHarness.Components.Colors.Color color = new(0, 139, 139);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkCyan;
@@ -1483,7 +1573,8 @@ public class Check
         const byte expectedGreen = 134;
         const byte expectedBlue = 11;
 
-        GifHarness.Components.Colors.Color color = new(184, 134, 11);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkGoldenrod;
@@ -1550,7 +1641,8 @@ public class Check
         const byte expectedGreen = 169;
         const byte expectedBlue = 169;
 
-        GifHarness.Components.Colors.Color color = new(169, 169, 169);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkGray;
@@ -1617,7 +1709,8 @@ public class Check
         const byte expectedGreen = 100;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(0, 100, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkGreen;
@@ -1684,7 +1777,8 @@ public class Check
         const byte expectedGreen = 183;
         const byte expectedBlue = 107;
 
-        GifHarness.Components.Colors.Color color = new(189, 183, 107);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkKhaki;
@@ -1751,7 +1845,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 139;
 
-        GifHarness.Components.Colors.Color color = new(139, 0, 139);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkMagenta;
@@ -1818,7 +1913,8 @@ public class Check
         const byte expectedGreen = 107;
         const byte expectedBlue = 47;
 
-        GifHarness.Components.Colors.Color color = new(85, 107, 47);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkOliveGreen;
@@ -1885,7 +1981,8 @@ public class Check
         const byte expectedGreen = 140;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(255, 140, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkOrange;
@@ -1952,7 +2049,8 @@ public class Check
         const byte expectedGreen = 50;
         const byte expectedBlue = 204;
 
-        GifHarness.Components.Colors.Color color = new(153, 50, 204);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkOrchid;
@@ -2019,7 +2117,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(139, 0, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkRed;
@@ -2086,7 +2185,8 @@ public class Check
         const byte expectedGreen = 150;
         const byte expectedBlue = 122;
 
-        GifHarness.Components.Colors.Color color = new(233, 150, 122);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkSalmon;
@@ -2153,7 +2253,8 @@ public class Check
         const byte expectedGreen = 188;
         const byte expectedBlue = 139;
 
-        GifHarness.Components.Colors.Color color = new(143, 188, 139);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkSeaGreen;
@@ -2220,7 +2321,8 @@ public class Check
         const byte expectedGreen = 61;
         const byte expectedBlue = 139;
 
-        GifHarness.Components.Colors.Color color = new(72, 61, 139);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkSlateBlue;
@@ -2287,7 +2389,8 @@ public class Check
         const byte expectedGreen = 79;
         const byte expectedBlue = 79;
 
-        GifHarness.Components.Colors.Color color = new(47, 79, 79);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkSlateGray;
@@ -2354,7 +2457,8 @@ public class Check
         const byte expectedGreen = 206;
         const byte expectedBlue = 209;
 
-        GifHarness.Components.Colors.Color color = new(0, 206, 209);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkTurquoise;
@@ -2421,7 +2525,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 211;
 
-        GifHarness.Components.Colors.Color color = new(148, 0, 211);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DarkViolet;
@@ -2488,7 +2593,8 @@ public class Check
         const byte expectedGreen = 20;
         const byte expectedBlue = 147;
 
-        GifHarness.Components.Colors.Color color = new(255, 20, 147);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DeepPink;
@@ -2555,7 +2661,8 @@ public class Check
         const byte expectedGreen = 191;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(0, 191, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DeepSkyBlue;
@@ -2622,7 +2729,8 @@ public class Check
         const byte expectedGreen = 105;
         const byte expectedBlue = 105;
 
-        GifHarness.Components.Colors.Color color = new(105, 105, 105);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DimGray;
@@ -2689,7 +2797,8 @@ public class Check
         const byte expectedGreen = 144;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(30, 144, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.DodgerBlue;
@@ -2756,7 +2865,8 @@ public class Check
         const byte expectedGreen = 34;
         const byte expectedBlue = 34;
 
-        GifHarness.Components.Colors.Color color = new(178, 34, 34);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Firebrick;
@@ -2823,7 +2933,8 @@ public class Check
         const byte expectedGreen = 250;
         const byte expectedBlue = 240;
 
-        GifHarness.Components.Colors.Color color = new(255, 250, 240);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.FloralWhite;
@@ -2890,7 +3001,8 @@ public class Check
         const byte expectedGreen = 139;
         const byte expectedBlue = 34;
 
-        GifHarness.Components.Colors.Color color = new(34, 139, 34);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.ForestGreen;
@@ -2957,7 +3069,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(255, 0, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Fuchsia;
@@ -3024,7 +3137,8 @@ public class Check
         const byte expectedGreen = 220;
         const byte expectedBlue = 220;
 
-        GifHarness.Components.Colors.Color color = new(220, 220, 220);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Gainsboro;
@@ -3091,7 +3205,8 @@ public class Check
         const byte expectedGreen = 248;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(248, 248, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.GhostWhite;
@@ -3158,7 +3273,8 @@ public class Check
         const byte expectedGreen = 215;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(255, 215, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Gold;
@@ -3225,7 +3341,8 @@ public class Check
         const byte expectedGreen = 165;
         const byte expectedBlue = 32;
 
-        GifHarness.Components.Colors.Color color = new(218, 165, 32);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Goldenrod;
@@ -3292,7 +3409,8 @@ public class Check
         const byte expectedGreen = 128;
         const byte expectedBlue = 128;
 
-        GifHarness.Components.Colors.Color color = new(128, 128, 128);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Gray;
@@ -3359,7 +3477,8 @@ public class Check
         const byte expectedGreen = 128;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(0, 128, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Green;
@@ -3426,7 +3545,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 47;
 
-        GifHarness.Components.Colors.Color color = new(173, 255, 47);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.GreenYellow;
@@ -3493,7 +3613,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 240;
 
-        GifHarness.Components.Colors.Color color = new(240, 255, 240);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Honeydew;
@@ -3560,7 +3681,8 @@ public class Check
         const byte expectedGreen = 105;
         const byte expectedBlue = 180;
 
-        GifHarness.Components.Colors.Color color = new(255, 105, 180);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.HotPink;
@@ -3627,7 +3749,8 @@ public class Check
         const byte expectedGreen = 92;
         const byte expectedBlue = 92;
 
-        GifHarness.Components.Colors.Color color = new(205, 92, 92);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.IndianRed;
@@ -3694,7 +3817,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 130;
 
-        GifHarness.Components.Colors.Color color = new(75, 0, 130);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Indigo;
@@ -3761,7 +3885,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 240;
 
-        GifHarness.Components.Colors.Color color = new(255, 255, 240);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Ivory;
@@ -3828,7 +3953,8 @@ public class Check
         const byte expectedGreen = 230;
         const byte expectedBlue = 140;
 
-        GifHarness.Components.Colors.Color color = new(240, 230, 140);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Khaki;
@@ -3895,7 +4021,8 @@ public class Check
         const byte expectedGreen = 230;
         const byte expectedBlue = 250;
 
-        GifHarness.Components.Colors.Color color = new(230, 230, 250);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Lavender;
@@ -3962,7 +4089,8 @@ public class Check
         const byte expectedGreen = 240;
         const byte expectedBlue = 245;
 
-        GifHarness.Components.Colors.Color color = new(255, 240, 245);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LavenderBlush;
@@ -4029,7 +4157,8 @@ public class Check
         const byte expectedGreen = 252;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(124, 252, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LawnGreen;
@@ -4096,7 +4225,8 @@ public class Check
         const byte expectedGreen = 250;
         const byte expectedBlue = 205;
 
-        GifHarness.Components.Colors.Color color = new(255, 250, 205);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LemonChiffon;
@@ -4163,7 +4293,8 @@ public class Check
         const byte expectedGreen = 216;
         const byte expectedBlue = 230;
 
-        GifHarness.Components.Colors.Color color = new(173, 216, 230);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightBlue;
@@ -4230,7 +4361,8 @@ public class Check
         const byte expectedGreen = 128;
         const byte expectedBlue = 128;
 
-        GifHarness.Components.Colors.Color color = new(240, 128, 128);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightCoral;
@@ -4297,7 +4429,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(224, 255, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightCyan;
@@ -4364,7 +4497,8 @@ public class Check
         const byte expectedGreen = 250;
         const byte expectedBlue = 210;
 
-        GifHarness.Components.Colors.Color color = new(250, 250, 210);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightGoldenrodYellow;
@@ -4431,7 +4565,8 @@ public class Check
         const byte expectedGreen = 211;
         const byte expectedBlue = 211;
 
-        GifHarness.Components.Colors.Color color = new(211, 211, 211);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightGray;
@@ -4498,7 +4633,8 @@ public class Check
         const byte expectedGreen = 238;
         const byte expectedBlue = 144;
 
-        GifHarness.Components.Colors.Color color = new(144, 238, 144);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightGreen;
@@ -4565,7 +4701,8 @@ public class Check
         const byte expectedGreen = 182;
         const byte expectedBlue = 193;
 
-        GifHarness.Components.Colors.Color color = new(255, 182, 193);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightPink;
@@ -4632,7 +4769,8 @@ public class Check
         const byte expectedGreen = 160;
         const byte expectedBlue = 122;
 
-        GifHarness.Components.Colors.Color color = new(255, 160, 122);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightSalmon;
@@ -4699,7 +4837,8 @@ public class Check
         const byte expectedGreen = 178;
         const byte expectedBlue = 170;
 
-        GifHarness.Components.Colors.Color color = new(32, 178, 170);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightSeaGreen;
@@ -4766,7 +4905,8 @@ public class Check
         const byte expectedGreen = 206;
         const byte expectedBlue = 250;
 
-        GifHarness.Components.Colors.Color color = new(135, 206, 250);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightSkyBlue;
@@ -4833,7 +4973,8 @@ public class Check
         const byte expectedGreen = 136;
         const byte expectedBlue = 153;
 
-        GifHarness.Components.Colors.Color color = new(119, 136, 153);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightSlateGray;
@@ -4900,7 +5041,8 @@ public class Check
         const byte expectedGreen = 196;
         const byte expectedBlue = 222;
 
-        GifHarness.Components.Colors.Color color = new(176, 196, 222);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightSteelBlue;
@@ -4967,7 +5109,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 224;
 
-        GifHarness.Components.Colors.Color color = new(255, 255, 224);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LightYellow;
@@ -5034,7 +5177,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(0, 255, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Lime;
@@ -5101,7 +5245,8 @@ public class Check
         const byte expectedGreen = 205;
         const byte expectedBlue = 50;
 
-        GifHarness.Components.Colors.Color color = new(50, 205, 50);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.LimeGreen;
@@ -5168,7 +5313,8 @@ public class Check
         const byte expectedGreen = 240;
         const byte expectedBlue = 230;
 
-        GifHarness.Components.Colors.Color color = new(250, 240, 230);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Linen;
@@ -5235,7 +5381,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(255, 0, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Magenta;
@@ -5302,7 +5449,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(128, 0, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Maroon;
@@ -5369,7 +5517,8 @@ public class Check
         const byte expectedGreen = 205;
         const byte expectedBlue = 170;
 
-        GifHarness.Components.Colors.Color color = new(102, 205, 170);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MediumAquamarine;
@@ -5436,7 +5585,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 205;
 
-        GifHarness.Components.Colors.Color color = new(0, 0, 205);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MediumBlue;
@@ -5503,7 +5653,8 @@ public class Check
         const byte expectedGreen = 85;
         const byte expectedBlue = 211;
 
-        GifHarness.Components.Colors.Color color = new(186, 85, 211);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MediumOrchid;
@@ -5570,7 +5721,8 @@ public class Check
         const byte expectedGreen = 112;
         const byte expectedBlue = 219;
 
-        GifHarness.Components.Colors.Color color = new(147, 112, 219);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MediumPurple;
@@ -5637,7 +5789,8 @@ public class Check
         const byte expectedGreen = 179;
         const byte expectedBlue = 113;
 
-        GifHarness.Components.Colors.Color color = new(60, 179, 113);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MediumSeaGreen;
@@ -5704,7 +5857,8 @@ public class Check
         const byte expectedGreen = 104;
         const byte expectedBlue = 238;
 
-        GifHarness.Components.Colors.Color color = new(123, 104, 238);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MediumSlateBlue;
@@ -5771,7 +5925,8 @@ public class Check
         const byte expectedGreen = 250;
         const byte expectedBlue = 154;
 
-        GifHarness.Components.Colors.Color color = new(0, 250, 154);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MediumSpringGreen;
@@ -5838,7 +5993,8 @@ public class Check
         const byte expectedGreen = 209;
         const byte expectedBlue = 204;
 
-        GifHarness.Components.Colors.Color color = new(72, 209, 204);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MediumTurquoise;
@@ -5905,7 +6061,8 @@ public class Check
         const byte expectedGreen = 21;
         const byte expectedBlue = 133;
 
-        GifHarness.Components.Colors.Color color = new(199, 21, 133);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MediumVioletRed;
@@ -5972,7 +6129,8 @@ public class Check
         const byte expectedGreen = 25;
         const byte expectedBlue = 112;
 
-        GifHarness.Components.Colors.Color color = new(25, 25, 112);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MidnightBlue;
@@ -6039,7 +6197,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 250;
 
-        GifHarness.Components.Colors.Color color = new(245, 255, 250);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MintCream;
@@ -6106,7 +6265,8 @@ public class Check
         const byte expectedGreen = 228;
         const byte expectedBlue = 225;
 
-        GifHarness.Components.Colors.Color color = new(255, 228, 225);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.MistyRose;
@@ -6173,7 +6333,8 @@ public class Check
         const byte expectedGreen = 228;
         const byte expectedBlue = 181;
 
-        GifHarness.Components.Colors.Color color = new(255, 228, 181);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Moccasin;
@@ -6240,7 +6401,8 @@ public class Check
         const byte expectedGreen = 222;
         const byte expectedBlue = 173;
 
-        GifHarness.Components.Colors.Color color = new(255, 222, 173);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.NavajoWhite;
@@ -6307,7 +6469,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 128;
 
-        GifHarness.Components.Colors.Color color = new(0, 0, 128);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Navy;
@@ -6374,7 +6537,8 @@ public class Check
         const byte expectedGreen = 245;
         const byte expectedBlue = 230;
 
-        GifHarness.Components.Colors.Color color = new(253, 245, 230);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.OldLace;
@@ -6441,7 +6605,8 @@ public class Check
         const byte expectedGreen = 128;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(128, 128, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Olive;
@@ -6508,7 +6673,8 @@ public class Check
         const byte expectedGreen = 142;
         const byte expectedBlue = 35;
 
-        GifHarness.Components.Colors.Color color = new(107, 142, 35);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.OliveDrab;
@@ -6575,7 +6741,8 @@ public class Check
         const byte expectedGreen = 165;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(255, 165, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Orange;
@@ -6642,7 +6809,8 @@ public class Check
         const byte expectedGreen = 69;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(255, 69, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.OrangeRed;
@@ -6709,7 +6877,8 @@ public class Check
         const byte expectedGreen = 112;
         const byte expectedBlue = 214;
 
-        GifHarness.Components.Colors.Color color = new(218, 112, 214);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Orchid;
@@ -6776,7 +6945,8 @@ public class Check
         const byte expectedGreen = 232;
         const byte expectedBlue = 170;
 
-        GifHarness.Components.Colors.Color color = new(238, 232, 170);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.PaleGoldenrod;
@@ -6843,7 +7013,8 @@ public class Check
         const byte expectedGreen = 251;
         const byte expectedBlue = 152;
 
-        GifHarness.Components.Colors.Color color = new(152, 251, 152);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.PaleGreen;
@@ -6910,7 +7081,8 @@ public class Check
         const byte expectedGreen = 238;
         const byte expectedBlue = 238;
 
-        GifHarness.Components.Colors.Color color = new(175, 238, 238);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.PaleTurquoise;
@@ -6977,7 +7149,8 @@ public class Check
         const byte expectedGreen = 112;
         const byte expectedBlue = 147;
 
-        GifHarness.Components.Colors.Color color = new(219, 112, 147);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.PaleVioletRed;
@@ -7044,7 +7217,8 @@ public class Check
         const byte expectedGreen = 239;
         const byte expectedBlue = 213;
 
-        GifHarness.Components.Colors.Color color = new(255, 239, 213);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.PapayaWhip;
@@ -7111,7 +7285,8 @@ public class Check
         const byte expectedGreen = 218;
         const byte expectedBlue = 185;
 
-        GifHarness.Components.Colors.Color color = new(255, 218, 185);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.PeachPuff;
@@ -7178,7 +7353,8 @@ public class Check
         const byte expectedGreen = 133;
         const byte expectedBlue = 63;
 
-        GifHarness.Components.Colors.Color color = new(205, 133, 63);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Peru;
@@ -7245,7 +7421,8 @@ public class Check
         const byte expectedGreen = 192;
         const byte expectedBlue = 203;
 
-        GifHarness.Components.Colors.Color color = new(255, 192, 203);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Pink;
@@ -7312,7 +7489,8 @@ public class Check
         const byte expectedGreen = 160;
         const byte expectedBlue = 221;
 
-        GifHarness.Components.Colors.Color color = new(221, 160, 221);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Plum;
@@ -7379,7 +7557,8 @@ public class Check
         const byte expectedGreen = 224;
         const byte expectedBlue = 230;
 
-        GifHarness.Components.Colors.Color color = new(176, 224, 230);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.PowderBlue;
@@ -7446,7 +7625,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 128;
 
-        GifHarness.Components.Colors.Color color = new(128, 0, 128);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Purple;
@@ -7513,7 +7693,8 @@ public class Check
         const byte expectedGreen = 0;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(255, 0, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Red;
@@ -7580,7 +7761,8 @@ public class Check
         const byte expectedGreen = 143;
         const byte expectedBlue = 143;
 
-        GifHarness.Components.Colors.Color color = new(188, 143, 143);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.RosyBrown;
@@ -7647,7 +7829,8 @@ public class Check
         const byte expectedGreen = 105;
         const byte expectedBlue = 225;
 
-        GifHarness.Components.Colors.Color color = new(65, 105, 225);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.RoyalBlue;
@@ -7714,7 +7897,8 @@ public class Check
         const byte expectedGreen = 69;
         const byte expectedBlue = 19;
 
-        GifHarness.Components.Colors.Color color = new(139, 69, 19);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.SaddleBrown;
@@ -7781,7 +7965,8 @@ public class Check
         const byte expectedGreen = 128;
         const byte expectedBlue = 114;
 
-        GifHarness.Components.Colors.Color color = new(250, 128, 114);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Salmon;
@@ -7848,7 +8033,8 @@ public class Check
         const byte expectedGreen = 164;
         const byte expectedBlue = 96;
 
-        GifHarness.Components.Colors.Color color = new(244, 164, 96);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.SandyBrown;
@@ -7915,7 +8101,8 @@ public class Check
         const byte expectedGreen = 139;
         const byte expectedBlue = 87;
 
-        GifHarness.Components.Colors.Color color = new(46, 139, 87);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.SeaGreen;
@@ -7982,7 +8169,8 @@ public class Check
         const byte expectedGreen = 245;
         const byte expectedBlue = 238;
 
-        GifHarness.Components.Colors.Color color = new(255, 245, 238);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.SeaShell;
@@ -8049,7 +8237,8 @@ public class Check
         const byte expectedGreen = 82;
         const byte expectedBlue = 45;
 
-        GifHarness.Components.Colors.Color color = new(160, 82, 45);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Sienna;
@@ -8116,7 +8305,8 @@ public class Check
         const byte expectedGreen = 192;
         const byte expectedBlue = 192;
 
-        GifHarness.Components.Colors.Color color = new(192, 192, 192);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Silver;
@@ -8183,7 +8373,8 @@ public class Check
         const byte expectedGreen = 206;
         const byte expectedBlue = 235;
 
-        GifHarness.Components.Colors.Color color = new(135, 206, 235);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.SkyBlue;
@@ -8250,7 +8441,8 @@ public class Check
         const byte expectedGreen = 90;
         const byte expectedBlue = 205;
 
-        GifHarness.Components.Colors.Color color = new(106, 90, 205);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.SlateBlue;
@@ -8317,7 +8509,8 @@ public class Check
         const byte expectedGreen = 128;
         const byte expectedBlue = 144;
 
-        GifHarness.Components.Colors.Color color = new(112, 128, 144);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.SlateGray;
@@ -8384,7 +8577,8 @@ public class Check
         const byte expectedGreen = 250;
         const byte expectedBlue = 250;
 
-        GifHarness.Components.Colors.Color color = new(255, 250, 250);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Snow;
@@ -8451,7 +8645,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 127;
 
-        GifHarness.Components.Colors.Color color = new(0, 255, 127);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.SpringGreen;
@@ -8518,7 +8713,8 @@ public class Check
         const byte expectedGreen = 130;
         const byte expectedBlue = 180;
 
-        GifHarness.Components.Colors.Color color = new(70, 130, 180);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.SteelBlue;
@@ -8585,7 +8781,8 @@ public class Check
         const byte expectedGreen = 180;
         const byte expectedBlue = 140;
 
-        GifHarness.Components.Colors.Color color = new(210, 180, 140);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Tan;
@@ -8652,7 +8849,8 @@ public class Check
         const byte expectedGreen = 128;
         const byte expectedBlue = 128;
 
-        GifHarness.Components.Colors.Color color = new(0, 128, 128);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Teal;
@@ -8719,7 +8917,8 @@ public class Check
         const byte expectedGreen = 191;
         const byte expectedBlue = 216;
 
-        GifHarness.Components.Colors.Color color = new(216, 191, 216);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Thistle;
@@ -8786,7 +8985,8 @@ public class Check
         const byte expectedGreen = 99;
         const byte expectedBlue = 71;
 
-        GifHarness.Components.Colors.Color color = new(255, 99, 71);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Tomato;
@@ -8853,7 +9053,8 @@ public class Check
         const byte expectedGreen = 224;
         const byte expectedBlue = 208;
 
-        GifHarness.Components.Colors.Color color = new(64, 224, 208);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Turquoise;
@@ -8920,7 +9121,8 @@ public class Check
         const byte expectedGreen = 130;
         const byte expectedBlue = 238;
 
-        GifHarness.Components.Colors.Color color = new(238, 130, 238);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Violet;
@@ -8987,7 +9189,8 @@ public class Check
         const byte expectedGreen = 222;
         const byte expectedBlue = 179;
 
-        GifHarness.Components.Colors.Color color = new(245, 222, 179);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Wheat;
@@ -9054,7 +9257,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 255;
 
-        GifHarness.Components.Colors.Color color = new(255, 255, 255);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.White;
@@ -9121,7 +9325,8 @@ public class Check
         const byte expectedGreen = 245;
         const byte expectedBlue = 245;
 
-        GifHarness.Components.Colors.Color color = new(245, 245, 245);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.WhiteSmoke;
@@ -9188,7 +9393,8 @@ public class Check
         const byte expectedGreen = 255;
         const byte expectedBlue = 0;
 
-        GifHarness.Components.Colors.Color color = new(255, 255, 0);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.Yellow;
@@ -9255,7 +9461,8 @@ public class Check
         const byte expectedGreen = 205;
         const byte expectedBlue = 50;
 
-        GifHarness.Components.Colors.Color color = new(154, 205, 50);
+        GifHarness.Components.Colors.Color color = new(expectedRed,
+            expectedGreen, expectedBlue);
 
         GifHarness.Components.Colors.Color controlColor =
             GifHarness.Components.Colors.Color.YellowGreen;
