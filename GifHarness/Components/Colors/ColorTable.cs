@@ -328,9 +328,42 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
     public int NumberOfColorsInLogicalScreenDescriptor { get; private set; }
 
     /// <summary>
-    /// 
+    ///     <para>
+    ///         Helper method for the constructor to set the number of colors encoded in the logical screen descriptor
+    ///         to the current amount depending on the number of colors in the color table.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         That is:
+    ///         0 encoded if 2 colors are present.
+    ///         1 encoded if 4 colors are present.
+    ///         2 encoded if 8 colors are present.
+    ///         3 encoded if 16 colors are present.
+    ///         4 encoded if 32 colors are present.
+    ///         5 encoded if 64 colors are present.
+    ///         6 encoded if 128 colors are present.
+    ///         7 encoded if 256 colors are present.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         Any other amount of colors being present should never happen due to constructor checks.
+    ///         The responsibility of making sure that number of colors is valid falls on the caller.
+    ///         If the number of colors is invalid, throws an <see cref="UnreachableException"/>.
+    ///     </para>
     /// </summary>
-    /// <exception cref="UnreachableException"></exception>
+    /// <exception cref="UnreachableException">
+    ///     <para>
+    ///         Thrown if the number of colors in the color table is invalid (it is not either 1, 2, 4, 8, 16, 32, 64, 128 or 256).
+    ///     </para>
+    ///
+    ///     <para>
+    ///         This is an active check to ensure that the number of colors in the color table is valid.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         This exception should never be thrown.
+    ///     </para>
+    /// </exception>
     private void SetNumberOfColorsInLogicalScreenDescriptor()
     {
         NumberOfColorsInLogicalScreenDescriptor = _colors.Length switch
@@ -368,6 +401,49 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         return new ColorTable(colors);
     }
 
+    /// <summary>
+    ///     <para>
+    ///         Helper method to validate serialized bytes representing a color table.
+    ///         If valid, the method does nothing.
+    ///         If invalid the method throws an exception.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         For the serialized byte data representing the color table to be valid,
+    ///         these requirements need to be met:
+    ///     </para>
+    ///
+    ///     <para>
+    ///         The number of bytes must be a multiple of 3
+    ///     </para>
+    ///
+    ///     <para>
+    ///         The number of bytes must be between 6 and 768 (both included).
+    ///         (So between 2 and 256 colors (both included)).
+    ///     </para>
+    ///
+    ///     <para>
+    ///         The number of bytes must be a power of two.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         In other words 2, 4, 8, 16, 32, 64, 128 and 256 are the only accepted amounts of color.
+    ///         (That is 6, 12, 24, 48, 96, 192, 384 or 768 are the only accepted amounts of bytes).
+    ///     </para>
+    /// </summary>
+    /// <param name="data">
+    ///     The serialized bytes to validate.
+    /// </param>
+    /// <exception cref="ArgumentException">
+    ///     The number of bytes is not a multiple of three.
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    ///     The number of bytes is less than 6 or greater than 768.
+    ///     (So the number of colors is less than 2 or greater than 256.)
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    ///     The number of colors (a color takes up 3 bytes) is not a power of two.
+    /// </exception>
     private static void ValidateSerializedBytes(byte[] data)
     {
         if (data.Length % 3 != 0)
@@ -420,6 +496,26 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         return bytes;
     }
 
+    /// <summary>
+    ///     <para>
+    ///         Checks if an amount of colors is a valid amount of colors for a color table.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         The color amounts which are considered valid are 2, 4, 8, 16, 32, 64, 128 and 256.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         Returns if a color amount for a color table is valid.
+    ///     </para>
+    /// </summary>
+    /// <param name="count">
+    ///     The amount of colors for a color table to check.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if the color amount is valid.
+    ///     <see langword="false"/> if the color amount is invalid.
+    /// </returns>
     public static bool IsValidNumberOfColors(int count)
     {
         const int maxColors = 256;
@@ -434,12 +530,57 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         return isPowerOfTwo;
     }
 
+    /// <summary>
+    ///     <para>
+    ///         Checks if an amount of colors in <paramref name="colorTableBuilder"/> is a valid amount of colors for a color table.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         The color amounts which are considered valid are 2, 4, 8, 16, 32, 64, 128 and 256.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         Returns if a color amount for a color table is valid.
+    ///     </para>
+    /// </summary>
+    /// <param name="colorTableBuilder">
+    ///     The color table builder to check the amount of colors for.     
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if the color amount is valid.
+    ///     <see langword="false"/> if the color amount is invalid.
+    /// </returns>
     public static bool IsValidNumberOfColors(
         ColorTableBuilder colorTableBuilder)
     {
         return IsValidNumberOfColors(colorTableBuilder.Count);
     }
 
+    /// <summary>
+    ///     <para>
+    ///         Checks if an amount of colors enumerated in <paramref name="colors"/> is a valid amount of colors for a color table.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         The color amounts which are considered valid are 2, 4, 8, 16, 32, 64, 128 and 256.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         Returns if a color amount for a color table is valid.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         WARNING: This code enumerates the code to count the colors.
+    ///         Be careful if your object doesn't support multiple enumerations.
+    ///     </para>
+    /// </summary>
+    /// <param name="colors">
+    ///     The color <see cref="IEnumerable{Color}"/> to check the amount of colors for.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if the color amount is valid.
+    ///     <see langword="false"/> if the color amount is invalid.
+    /// </returns>
     public static bool IsValidNumberOfColors(
         IEnumerable<Color> colors)
     {
@@ -450,6 +591,31 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         return result;
     }
 
+    /// <summary>
+    ///     <para>
+    ///         Checks if an amount of colors enumerated in <paramref name="colors"/> is a valid amount of colors for a color table.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         The color amounts which are considered valid are 2, 4, 8, 16, 32, 64, 128 and 256.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         Returns if a color amount for a color table is valid.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         WARNING: This code enumerates the code to count the colors.
+    ///         Be careful if your object doesn't support multiple enumerations.
+    ///     </para>
+    /// </summary>
+    /// <param name="colors">
+    ///     The color <see cref="IEnumerator{Color}"/> to check the amount of colors for.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if the color amount is valid.
+    ///     <see langword="false"/> if the color amount is invalid.
+    /// </returns>
     private static bool IsValidNumberOfColors(
         IEnumerator colors)
     {
@@ -457,6 +623,46 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         return IsValidNumberOfColors(count);
     }
 
+    /// <summary>
+    ///     <para>
+    ///         Checks if an amount of colors passed as parameters is a valid amount of colors for a color table.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         The color amounts which are considered valid are 2, 4, 8, 16, 32, 64, 128 and 256.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         Returns if a color amount for a color table is valid.
+    ///     </para>
+    /// </summary>
+    /// <param name="colors">
+    ///     A variable amount of <see cref="Color"/> parameters to check the amount of colors for.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if the color amount is valid.
+    ///     <see langword="false"/> if the color amount is invalid.
+    /// </returns>
+    public static bool IsValidNumberOfColors(params Color[] colors)
+    {
+        return IsValidNumberOfColors(colors.Length);
+    }
+
+
+    /// <summary>
+    ///     Helper method to count the number of colors left
+    ///     (does not reset before counting) in the <see cref="IEnumerator"/>.
+    ///
+    ///     <para>
+    ///         WARNING: This does enumerate through the enumerator.
+    ///         The responsibility for making sure that multi enumeration is not a problem
+    ///         falls on the caller.
+    ///     </para>
+    /// </summary>
+    /// <param name="colors">
+    ///     The colors to enumerate through
+    /// </param>
+    /// <returns></returns>
     private static int EnumeratorLength(IEnumerator colors)
     {
         int count = 0;
@@ -469,22 +675,103 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         return count;
     }
 
+    /// <summary>
+    ///     Returns an enumerator that iterates through the <see cref="_colors"/>.
+    ///
+    ///     <para>
+    ///         WARNING: The user of the function
+    ///         must dispose of the enumerator by calling the Dispose method on the enumerator.
+    ///     </para>
+    /// </summary>
+    /// <returns>
+    ///     An enumerator that can be used to iterate through the <see cref="_colors"/>.
+    /// </returns>
     [MustDisposeResource]
     public IEnumerator<Color> GetEnumerator()
     {
         return ((IEnumerable<Color>)_colors).GetEnumerator();
     }
 
+    /// <summary>
+    ///     Returns an enumerator that iterates through a <see cref="_colors"/>.
+    ///
+    ///     <para>
+    ///         WARNING: The user of the function
+    ///         must dispose of the enumerator by calling the Dispose method on the enumerator.
+    ///     </para>
+    /// </summary>
+    /// <returns>
+    ///     An <see cref="T:System.Collections.IEnumerator" /> object
+    ///     that can be used to iterate through the <see cref="_colors"/>.
+    /// </returns>
     [MustDisposeResource]
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
     }
 
+    /// <summary>
+    ///     Gets the number of <see cref="Color"/>s in the <see cref="ColorTable"/>.
+    /// </summary>
+    /// <returns>
+    ///     The number of <see cref="Color"/>s in the <see cref="ColorTable"/>.
+    /// </returns>
     public int Count => _colors.Length;
 
+    /// <summary>
+    ///     Gets the <see cref="Color"/> at the specified <paramref name="index"/> in <see cref="ColorTable"/>.
+    /// </summary>
+    /// <param name="index">
+    ///     The zero-based index of the <see cref="Color"/> to get.
+    /// </param>
+    /// <returns>
+    ///     The <see cref="Color"/> at the specified index in the <see cref="ColorTable"/>.
+    /// </returns>
     public Color this[int index] => _colors[index];
 
+    /// <summary>
+    ///     <para>
+    ///         Checks if this <see cref="ColorTable"/> is equal to an <see langword="object"/>
+    ///     </para>
+    ///
+    ///     <para>
+    ///         An <see langword="object"/> is considered equal if:
+    ///     </para>
+    ///
+    ///     <para>
+    ///         it is a <see cref="ColorTable"/> and the number of colors
+    ///         and the colors (their order matters) is the same.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         it is a <see cref="ColorTableBuilder"/> and the number of colors
+    ///         and the colors (their order matters) is the same.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         it is an <see cref="IEnumerable{Color}"/> and the color sequence of
+    ///         the enumerable matches the colors in the color table (order matters).
+    ///         WARNING: This will enumerate through the <see cref="IEnumerable{Color}"/> object and
+    ///         the responsibility for making sure code does not break due to multiple enumeration falls on the caller.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         it is an <see cref="Array"/> of <see langword="byte"/>s
+    ///         and the color table it represents is the same as this one (color table equality rules apply).
+    ///         If the byte array is an invalid serialization of a <see cref="ColorTable"/>, then it is considered not the same as this.
+    ///     </para>
+    ///
+    ///     <para>
+    ///         If it is anything else, then it is considered not equal.
+    ///     </para>
+    /// </summary>
+    /// <param name="obj">
+    ///     The <see langword="object"/> to check equality against.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if the <paramref name="obj"/> is considered equal to this <see cref="ColorTable"/>.
+    ///     <see langword="false"/> if the <paramref name="obj"/> is considered not equal to this <see cref="ColorTable"/>.
+    /// </returns>
     public override bool Equals(object? obj)
     {
         switch (obj)
@@ -512,6 +799,21 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         }
     }
 
+    /// <summary>
+    ///     Checks if this <see cref="ColorTable"/> is equal to a <see cref="ColorTable"/>.
+    ///
+    ///     <para>
+    ///         Two <see cref="ColorTable"/>s are considered equal if they have the same number of <see cref="Color"/>s
+    ///         in the same order.
+    ///     </para>
+    /// </summary>
+    /// <param name="colorTable">
+    ///     The <see cref="ColorTable"/> to check equality against.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if this <see cref="ColorTable"/> is equal to <paramref name="colorTable"/>
+    ///     <see langword="false"/> if this <see cref="ColorTable"/> is not equal to <paramref name="colorTable"/>.
+    /// </returns>
     public bool Equals(ColorTable colorTable)
     {
         return _colors.SequenceEqual(colorTable);
@@ -522,6 +824,23 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         return _colors.GetHashCode();
     }
 
+    /// <summary>
+    ///     Gets the <see langword="string"/> representing this <see cref="ColorTable"/>.
+    ///
+    ///     <para>
+    ///         The format is as follows:
+    ///         Color Table: [ColorA, ColorB, ColorC]
+    ///     </para>
+    ///
+    ///     <para>
+    ///         The format for each color is that of <see cref="Color.ToString"/> that is to say:
+    ///
+    ///         $"Color: (R: {RedComponent}, G: {GreenComponent}, B: {BlueComponent})"
+    ///     </para>
+    /// </summary>
+    /// <returns>
+    ///     The <see langword="string"/> representation of this <see cref="ColorTable"/>.
+    /// </returns>
     public override string ToString()
     {
         StringBuilder builder = new();
@@ -540,11 +859,35 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         return builder.ToString();
     }
 
+    /// <summary>
+    ///     Create a <see cref="ColorTableBuilder"/> equivalent to this <see cref="ColorTable"/>.
+    /// </summary>
+    /// <returns>
+    ///     An equivalent <see cref="ColorTableBuilder"/> to this <see cref="ColorTable"/>.
+    /// </returns>
     public ColorTableBuilder ToBuilder()
     {
         return new ColorTableBuilder(this);
     }
 
+    /// <summary>
+    ///     Checks if two <see cref="ColorTable"/>s are equal.
+    ///
+    ///     <para>
+    ///         Two <see cref="ColorTable"/>s are considered equal if they have the same number of <see cref="Color"/>s
+    ///         in the same order.
+    ///     </para>
+    /// </summary>
+    /// <param name="leftColorTable">
+    ///     The left <see cref="ColorTable"/> operand.
+    /// </param>
+    /// <param name="rightColorTable">
+    ///     The right <see cref="ColorTable"/> operand.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if <paramref name="leftColorTable"/> is equal to <paramref name="rightColorTable"/>
+    ///     <see langword="false"/> if <paramref name="leftColorTable"/> is not equal to <paramref name="rightColorTable"/>.
+    /// </returns>
     public static bool operator ==(ColorTable leftColorTable,
         ColorTable rightColorTable)
     {
@@ -552,36 +895,149 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
                leftColorTable._colors.SequenceEqual(rightColorTable._colors);
     }
 
+    /// <summary>
+    ///     Checks if two <see cref="ColorTable"/>s are not equal.
+    ///
+    ///     <para>
+    ///         Two <see cref="ColorTable"/>s are considered equal if they have the same number of <see cref="Color"/>s
+    ///         in the same order.
+    ///     </para>
+    /// </summary>
+    /// <param name="leftColorTable">
+    ///     The left <see cref="ColorTable"/> operand.
+    /// </param>
+    /// <param name="rightColorTable">
+    ///     The right <see cref="ColorTable"/> operand.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if <paramref name="leftColorTable"/> is not equal to <paramref name="rightColorTable"/>
+    ///     <see langword="false"/> if <paramref name="leftColorTable"/> is equal to <paramref name="rightColorTable"/>.
+    /// </returns>
     public static bool operator !=(ColorTable leftColorTable,
         ColorTable rightColorTable)
     {
         return !(leftColorTable == rightColorTable);
     }
 
+    /// <summary>
+    ///     Checks if a <see cref="ColorTable"/> and a <see cref="ColorTableBuilder"/> are equal.
+    ///
+    ///     <para>
+    ///         A <see cref="ColorTable"/> and a <see cref="ColorTableBuilder"/> are considered equal
+    ///         if they have the same number of <see cref="Color"/>s
+    ///         in the same order.
+    ///     </para>
+    /// </summary>
+    /// <param name="colorTable">
+    ///     The left <see cref="ColorTable"/> operand.
+    /// </param>
+    /// <param name="colorTableBuilder">
+    ///     The right <see cref="ColorTableBuilder"/> operand.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if <paramref name="colorTable"/> is equal to <paramref name="colorTableBuilder"/>
+    ///     <see langword="false"/> if <paramref name="colorTable"/> is not equal to <paramref name="colorTableBuilder"/>.
+    /// </returns>
     public static bool operator ==(ColorTable colorTable,
         ColorTableBuilder colorTableBuilder)
     {
         return Equality(colorTable, colorTableBuilder);
     }
 
+    /// <summary>
+    ///     Checks if a <see cref="ColorTable"/> and a <see cref="ColorTableBuilder"/> are equal.
+    ///
+    ///     <para>
+    ///         A <see cref="ColorTable"/> and a <see cref="ColorTableBuilder"/> are considered equal
+    ///         if they have the same number of <see cref="Color"/>s
+    ///         in the same order.
+    ///     </para>
+    /// </summary>
+    /// <param name="colorTable">
+    ///     The left <see cref="ColorTable"/> operand.
+    /// </param>
+    /// <param name="colorTableBuilder">
+    ///     The right <see cref="ColorTableBuilder"/> operand.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if <paramref name="colorTable"/> is not equal to <paramref name="colorTableBuilder"/>
+    ///     <see langword="false"/> if <paramref name="colorTable"/> is equal to <paramref name="colorTableBuilder"/>.
+    /// </returns>
     public static bool operator !=(ColorTable colorTable,
         ColorTableBuilder colorTableBuilder)
     {
         return !Equality(colorTable, colorTableBuilder);
     }
 
+    /// <summary>
+    ///     Checks if a <see cref="ColorTable"/> and a <see cref="ColorTableBuilder"/> are equal.
+    ///
+    ///     <para>
+    ///         A <see cref="ColorTable"/> and a <see cref="ColorTableBuilder"/> are considered equal
+    ///         if they have the same number of <see cref="Color"/>s
+    ///         in the same order.
+    ///     </para>
+    /// </summary>
+    /// <param name="colorTable">
+    ///     The left <see cref="ColorTableBuilder"/> operand.
+    /// </param>
+    /// <param name="colorTableBuilder">
+    ///     The right <see cref="ColorTable"/> operand.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if <paramref name="colorTable"/> is equal to <paramref name="colorTableBuilder"/>
+    ///     <see langword="false"/> if <paramref name="colorTable"/> is not equal to <paramref name="colorTableBuilder"/>.
+    /// </returns>
     public static bool operator ==(ColorTableBuilder colorTableBuilder,
         ColorTable colorTable)
     {
         return Equality(colorTable, colorTableBuilder);
     }
 
+    /// <summary>
+    ///     Checks if a <see cref="ColorTable"/> and a <see cref="ColorTableBuilder"/> are equal.
+    ///
+    ///     <para>
+    ///         A <see cref="ColorTable"/> and a <see cref="ColorTableBuilder"/> are considered equal
+    ///         if they have the same number of <see cref="Color"/>s
+    ///         in the same order.
+    ///     </para>
+    /// </summary>
+    /// <param name="colorTable">
+    ///     The left <see cref="ColorTableBuilder"/> operand.
+    /// </param>
+    /// <param name="colorTableBuilder">
+    ///     The right <see cref="ColorTable"/> operand.
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if <paramref name="colorTable"/> is not equal to <paramref name="colorTableBuilder"/>
+    ///     <see langword="false"/> if <paramref name="colorTable"/> is equal to <paramref name="colorTableBuilder"/>.
+    /// </returns>
     public static bool operator !=(ColorTableBuilder colorTableBuilder,
         ColorTable colorTable)
     {
         return !Equality(colorTable, colorTableBuilder);
     }
 
+    /// <summary>
+    ///     Helper method which checks if a <see cref="ColorTable"/> and a <see cref="ColorTableBuilder"/> are equal.
+    ///
+    ///     <para>
+    ///         A <see cref="ColorTable"/> and a <see cref="ColorTableBuilder"/> are considered equal
+    ///         if they have the same number of <see cref="Color"/>s
+    ///         in the same order.
+    ///     </para>
+    /// </summary>
+    /// <param name="colorTable">
+    ///     The <see cref="ColorTable"/>
+    /// </param>
+    /// <param name="colorTableBuilder">
+    ///     The <see cref="ColorTableBuilder"/>
+    /// </param>
+    /// <returns>
+    ///     <see langword="true"/> if <paramref name="colorTable"/> is equal to <paramref name="colorTableBuilder"/>
+    ///     <see langword="false"/> if <paramref name="colorTable"/> is not equal to <paramref name="colorTableBuilder"/>.
+    /// </returns>
     private static bool Equality(ColorTable colorTable,
         ColorTableBuilder colorTableBuilder)
     {
