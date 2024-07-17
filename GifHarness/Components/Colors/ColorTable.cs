@@ -430,7 +430,8 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
             return false;
         }
 
-        return (count & (count - 1)) == 0;
+        bool isPowerOfTwo = (count & (count - 1)) == 0;
+        return isPowerOfTwo;
     }
 
     public static bool IsValidNumberOfColors(
