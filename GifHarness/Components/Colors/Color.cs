@@ -64,10 +64,12 @@ public struct Color(byte redComponent, byte greenComponent, byte blueComponent)
         : this(drawingColor.R, drawingColor.G, drawingColor.B)
     {
         if (drawingColor.A != 255)
+        {
             throw new ArgumentException(
                 "Alpha component must be 255.",
                 nameof(drawingColor)
             );
+        }
     }
 
     /// <summary>
@@ -90,10 +92,12 @@ public struct Color(byte redComponent, byte greenComponent, byte blueComponent)
     {
         const int expectedLength = 3;
         if (data.Length != expectedLength)
+        {
             throw new ArgumentException(
                 "Color data must have a length of 3.",
                 nameof(data)
             );
+        }
 
         return new Color(data[0], data[1], data[2]);
     }
@@ -600,6 +604,7 @@ public struct Color(byte redComponent, byte greenComponent, byte blueComponent)
             and not rgbStringLengthWithoutHashWithoutAlpha
             and not rgbStringLengthWithHashWithAlpha
             and not rgbStringLengthWithoutHashWithAlpha)
+        {
             throw new ArgumentException(
                 "Color string must be exactly 6 characters long." +
                 "(7 characters if the string starts with '#')\n" +
@@ -609,15 +614,18 @@ public struct Color(byte redComponent, byte greenComponent, byte blueComponent)
                 $"The provided length was {colorString.Length}.",
                 nameof(colorString)
             );
+        }
 
         char firstChar = colorString[0];
         if (colorString.Length is rgbStringLengthWithHashWithoutAlpha or
                 rgbStringLengthWithHashWithAlpha &&
             firstChar != '#')
+        {
             throw new ArgumentException(
                 "Color string must start with '#' if it is 7 or 9 characters long.",
                 nameof(colorString)
             );
+        }
 
         bool hasHash = firstChar == '#';
         bool hasAlpha = colorString.Length is rgbStringLengthWithHashWithAlpha
@@ -625,7 +633,9 @@ public struct Color(byte redComponent, byte greenComponent, byte blueComponent)
             rgbStringLengthWithoutHashWithAlpha;
 
         if (hasHash)
+        {
             colorString = colorString[1..];
+        }
 
         string redString = colorString[..2];
         string greenString = colorString[2..4];
@@ -635,11 +645,13 @@ public struct Color(byte redComponent, byte greenComponent, byte blueComponent)
         {
             string alphaString = colorString[6..];
             if (alphaString is not "ff" and not "FF")
+            {
                 throw new ArgumentException(
                     "Invalid alpha component: " +
                     $"{alphaString} (must be 'ff' or 'FF').",
                     nameof(colorString)
                 );
+            }
         }
 
         ValidateRgbStringComponentSubString(redString, "red", out byte red);
@@ -673,10 +685,12 @@ public struct Color(byte redComponent, byte greenComponent, byte blueComponent)
         string name, out byte value)
     {
         if (!byte.TryParse(component, NumberStyles.HexNumber, null, out value))
+        {
             throw new ArgumentException(
                 $"Invalid {name} component: {component}" +
                 " (must be a 2-digit hexadecimal number)."
             );
+        }
     }
 
     /// <summary>
@@ -727,9 +741,11 @@ public struct Color(byte redComponent, byte greenComponent, byte blueComponent)
         string blueString = BlueComponent.ToString(useUppercase ? "X2" : "x2");
 
         if (!includeAlpha)
+        {
             return includeHash
                 ? $"#{redString}{greenString}{blueString}"
                 : $"{redString}{greenString}{blueString}";
+        }
 
         string alphaString = useUppercase ? "FF" : "ff";
         return includeHash

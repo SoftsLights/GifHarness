@@ -156,14 +156,18 @@ public sealed class Version : IByteSerializable<Version>
         init
         {
             if (value is < 'a' or > 'z')
+            {
                 throw new ArgumentOutOfRangeException(nameof(value), value,
                     "GIF version letter must be a lowercase letter.");
+            }
 
             if (value is not 'a')
+            {
                 throw new ArgumentException(
                     "GIF version letter must be 'a'.\n" +
                     "(as of now, there is no other valid letter)",
                     nameof(value));
+            }
 
             _letter = value;
         }
@@ -223,13 +227,17 @@ public sealed class Version : IByteSerializable<Version>
         init
         {
             if (value.Day != 1 || value.Month != 1)
+            {
                 throw new ArgumentOutOfRangeException(nameof(value), value,
                     "Gif Version year must be January 1st.");
+            }
 
             if (value.Year is not 1987 and not 1989)
+            {
                 throw new ArgumentOutOfRangeException(nameof(value), value,
                     "Gif Version year must be 1987 or 1989.\n" +
                     "Indeed as of now, the only two valid years are 1987 and 1989.");
+            }
 
             _year = value;
         }
@@ -371,10 +379,12 @@ public sealed class Version : IByteSerializable<Version>
     public static Version ReadBytes(byte[] data)
     {
         if (data.Length != 3)
+        {
             throw new ArgumentException(
                 "Gif Version data must be exactly 3 bytes long.\n" +
                 "The first two bytes are the year, and the third byte is the letter.",
                 nameof(data));
+        }
 
         char yearDecade = (char)data[0];
         char yearUnit = (char)data[1];
@@ -429,7 +439,9 @@ public sealed class Version : IByteSerializable<Version>
 
         string yearString = version.Year.Year.ToString();
         if (yearString.Length != 4)
+        {
             throw new UnreachableException("Year must be 4 digits long.");
+        }
 
         char secondToLastDigit = yearString[2];
         char lastDigit = yearString[3];
@@ -833,7 +845,9 @@ public sealed class Version : IByteSerializable<Version>
     {
         string yearString = Year.Year.ToString();
         if (yearString.Length != 4)
+        {
             throw new UnreachableException("Year must be 4 digits long.");
+        }
 
         char secondToLastDigit = yearString[2];
         char lastDigit = yearString[3];

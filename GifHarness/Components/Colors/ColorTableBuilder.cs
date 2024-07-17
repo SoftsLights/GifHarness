@@ -28,26 +28,32 @@ public class ColorTableBuilder : IByteSerializable<ColorTableBuilder>,
     {
         Colors = colors.ToList();
         if (Colors.Count > MaxColors)
+        {
             throw new ArgumentOutOfRangeException(nameof(colors), colors,
                 $"Color Table cannot have more than {MaxColors} colors.");
+        }
     }
 
     public ColorTableBuilder(params Color[] colors)
     {
         Colors = colors.ToList();
         if (Colors.Count > MaxColors)
+        {
             throw new ArgumentOutOfRangeException(nameof(colors), colors,
                 $"Color Table cannot have more than {MaxColors} colors.");
+        }
     }
 
     public static ColorTableBuilder ReadBytes(byte[] data)
     {
         int bytes = data.Length;
         if (bytes % 3 != 0)
+        {
             throw new ArgumentException(
                 "Color Table data must have a length that is a multiple of 3.",
                 nameof(data)
             );
+        }
 
         List<Color> colors = [];
         for (int i = 0; i < bytes; i += 3)
@@ -93,8 +99,11 @@ public class ColorTableBuilder : IByteSerializable<ColorTableBuilder>,
     public void Add(Color item)
     {
         if (Colors.Count >= MaxColors)
+        {
             throw new ArgumentOutOfRangeException(nameof(item), item,
                 $"Color Table cannot have more than {MaxColors} colors.");
+        }
+
         Colors.Add(item);
     }
 
@@ -132,8 +141,10 @@ public class ColorTableBuilder : IByteSerializable<ColorTableBuilder>,
     public void Insert(int index, Color item)
     {
         if (Colors.Count >= MaxColors)
+        {
             throw new ArgumentOutOfRangeException(nameof(item), item,
                 $"Color Table cannot have more than {MaxColors} colors.");
+        }
 
         Colors.Insert(index, item);
     }
@@ -183,7 +194,9 @@ public class ColorTableBuilder : IByteSerializable<ColorTableBuilder>,
         {
             builder.Append(Colors[i]);
             if (i < Colors.Count - 1)
+            {
                 builder.AppendLine(",");
+            }
         }
 
         builder.Append(']');

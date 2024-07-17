@@ -161,7 +161,10 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
                 $"2, 4, 8, 16, 32, 64, 128 or 256 but was {enumeratorLength}",
                 nameof(colorEnumerator));
             if (!doNotDisposeEnumerator)
+            {
                 colorEnumerator.Dispose();
+            }
+
             throw exception;
         }
 
@@ -176,13 +179,17 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         }
 
         if (!doNotDisposeEnumerator)
+        {
             colorEnumerator.Dispose();
+        }
 
         if (index != enumeratorLength)
+        {
             throw new UnreachableException(
                 "index should be equal to enumerator length but isn't:\n" +
                 "index != enumeratorLength\n" +
                 $"{index} != {enumeratorLength}");
+        }
 
         SetNumberOfColorsInLogicalScreenDescriptor();
     }
@@ -363,22 +370,27 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
     private static void ValidateSerializedBytes(byte[] data)
     {
         if (data.Length % 3 != 0)
+        {
             throw new ArgumentException(
                 "Color table data must have a number of bytes " +
                 "that is a multiple of 3.",
                 nameof(data)
             );
+        }
 
         int numberOfColors = data.Length / 3;
         if (numberOfColors is < 2 or > 256)
+        {
             throw new ArgumentException(
                 "Color table data must have a number of colors " +
                 "between 2 and 256 (both included) (so between 6 and 768" +
                 " bytes in length (also both included)).\n" +
                 $"(found {numberOfColors} colors ({data.Length} bytes)).",
                 nameof(data));
+        }
 
         if ((numberOfColors & (numberOfColors - 1)) != 0)
+        {
             throw new ArgumentException(
                 "Color table data must have a number of colors " +
                 "which is a power of 2 \n" +
@@ -387,6 +399,7 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
                 "For byte counts that is equivalent to 6, 12, 24, 48, 96, " +
                 "192, 384 or 768 as acceptable values respectively.\n" +
                 $"Number of colors provided: {numberOfColors} ({data.Length} bytes).");
+        }
     }
 
     public static byte[] WriteBytes(ColorTable obj)
@@ -411,7 +424,9 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         const int minColors = 2;
 
         if (count is < minColors or > maxColors)
+        {
             return false;
+        }
 
         return (count & (count - 1)) == 0;
     }
@@ -442,7 +457,10 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
     private static int EnumeratorLength(IEnumerator colors)
     {
         int count = 0;
-        while (colors.MoveNext()) count += 1;
+        while (colors.MoveNext())
+        {
+            count += 1;
+        }
 
         colors.Reset();
         return count;
@@ -501,7 +519,9 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
             Color color = _colors[i];
             builder.Append(color);
             if (i < _colors.Length - 1)
+            {
                 builder.AppendLine(",");
+            }
         }
 
         builder.Append(']');
