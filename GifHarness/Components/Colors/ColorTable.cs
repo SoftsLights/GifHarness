@@ -469,11 +469,6 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
         return count;
     }
 
-    public static bool IsValidNumberOfColors(params Color[] colors)
-    {
-        return IsValidNumberOfColors(colors.Length);
-    }
-
     [MustDisposeResource]
     public IEnumerator<Color> GetEnumerator()
     {
