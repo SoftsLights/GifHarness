@@ -260,6 +260,7 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
     ///     <para>
     ///         If set to <see langword="true"/>, a deep copy will be created.
     ///     </para>
+    /// 
     ///     <para>
     ///         If set to <see langword="false"/>, the underlying array of colors will be shared.
     ///     </para>
@@ -389,7 +390,8 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
                 nameof(data));
         }
 
-        if ((numberOfColors & (numberOfColors - 1)) != 0)
+        bool isPowerOfTwo = (numberOfColors & (numberOfColors - 1)) == 0;
+        if (!isPowerOfTwo)
         {
             throw new ArgumentException(
                 "Color table data must have a number of colors " +
