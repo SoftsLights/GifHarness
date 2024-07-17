@@ -491,15 +491,29 @@ public class ColorTable : IByteSerializable<ColorTable>, IReadOnlyList<Color>
 
     public override bool Equals(object? obj)
     {
-        return obj switch
+        switch (obj)
         {
-            ColorTable colorTable => _colors.SequenceEqual(colorTable),
-            ColorTableBuilder colorTable => _colors.SequenceEqual(colorTable),
-            IEnumerable<Color> colors => _colors.SequenceEqual(colors),
-            byte[] data => data.Length % 3 == 0 &&
-                           _colors.SequenceEqual(ReadBytes(data)),
-            _ => false
-        };
+            case ColorTable colorTable:
+                return _colors.SequenceEqual(colorTable);
+            case ColorTableBuilder colorTableBuilder:
+                return _colors.SequenceEqual(colorTableBuilder);
+            case IEnumerable<Color> colors:
+                return _colors.SequenceEqual(colors);
+        }
+
+        if (obj is not byte[] data)
+        {
+            return false;
+        }
+
+        try
+        {
+            return data.Length % 3 == 0 && _colors.SequenceEqual(ReadBytes(data));
+        }
+        catch (ArgumentException)
+        {
+            return false;
+        }
     }
 
     public bool Equals(ColorTable colorTable)
