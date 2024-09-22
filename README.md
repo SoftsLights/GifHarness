@@ -1,4 +1,4 @@
-# GIF - harness
+# GIF - Harness
 
 This is a GIF harness that can be used to create, introspect, and manipulate GIFs.
 It is a simple library that can be used to create GIFs from scratch, or to manipulate existing GIFs.
